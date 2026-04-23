@@ -162,9 +162,32 @@ body.has-banner{padding-top:150px}
 }
 </style>
 </head>
-<body>
+<body class="has-banner">
 <div class="bg-gradient"></div>
 <div class="bg-gradient-2"></div>
+
+<div id="inAppBanner">
+    <div class="banner-inner">
+        <div class="banner-head">
+            <div class="banner-title">&#128241; Kurz wechseln &mdash; dauert 3 Sek.</div>
+            <div class="banner-arrow">&#8599;&#65039;</div>
+        </div>
+        <div class="banner-steps">
+            <div class="banner-step">
+                <span class="step-num">1</span>
+                <span class="step-text">Oben rechts auf <span class="dots-icon" id="menuSymbol">&#8942;</span> tippen</span>
+            </div>
+            <div class="banner-step">
+                <span class="step-num">2</span>
+                <span class="step-text"><b>"Im Browser &ouml;ffnen"</b> w&auml;hlen</span>
+            </div>
+            <div class="banner-step">
+                <span class="step-num">3</span>
+                <span class="step-text">Download starten &mdash; fertig &#10003;</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <main>
     <div class="logo">
@@ -214,51 +237,13 @@ body.has-banner{padding-top:150px}
 </footer>
 
 <script>
-// In-App Browser Detection (TikTok, Instagram, Facebook, Snapchat, etc.)
-// Diese Browser blockieren Store-Redirects. User muss in echten Browser wechseln.
+// Menu-Symbol an OS anpassen (iOS zeigt ... horizontal, Android ⋮ vertikal)
 (function(){
     var ua = navigator.userAgent || '';
-    var isInApp = /BytedanceWebview|musical_ly|TikTok|Bytedance|Instagram|FBAN|FBAV|FB_IAB|Snapchat|Line|MicroMessenger|Twitter/i.test(ua);
-    var isAndroid = /android/i.test(ua);
-    var isIOS = /iphone|ipad|ipod/i.test(ua);
-
-    if (!isInApp) return;
-
-    // Bestimme Menu-Symbol je nach OS
-    var menuSymbol, browserName;
-    if (isIOS) {
-        menuSymbol = '&bull;&bull;&bull;';
-        browserName = 'Safari';
-    } else {
-        menuSymbol = '&#8942;';
-        browserName = 'Chrome';
+    if (/iphone|ipad|ipod/i.test(ua)) {
+        var el = document.getElementById('menuSymbol');
+        if (el) el.innerHTML = '&bull;&bull;&bull;';
     }
-
-    var banner = document.createElement('div');
-    banner.id = 'inAppBanner';
-    banner.innerHTML =
-        '<div class="banner-inner">' +
-            '<div class="banner-head">' +
-                '<div class="banner-title">&#128241; Kurz wechseln &mdash; dauert 3 Sek.</div>' +
-                '<div class="banner-arrow">&#8599;&#65039;</div>' +
-            '</div>' +
-            '<div class="banner-steps">' +
-                '<div class="banner-step">' +
-                    '<span class="step-num">1</span>' +
-                    '<span class="step-text">Oben rechts auf <span class="dots-icon">' + menuSymbol + '</span> tippen</span>' +
-                '</div>' +
-                '<div class="banner-step">' +
-                    '<span class="step-num">2</span>' +
-                    '<span class="step-text"><b>"Im Browser &ouml;ffnen"</b> w&auml;hlen</span>' +
-                '</div>' +
-                '<div class="banner-step">' +
-                    '<span class="step-num">3</span>' +
-                    '<span class="step-text">Download startet &mdash; fertig &#10003;</span>' +
-                '</div>' +
-            '</div>' +
-        '</div>';
-    document.body.prepend(banner);
-    document.body.classList.add('has-banner');
 })();
 </script>
 </body>
