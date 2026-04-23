@@ -38,11 +38,11 @@ body{
 }
 main{
     flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:40px 24px 24px;position:relative;z-index:1;text-align:center;
+    padding:40px 24px 32px;position:relative;z-index:1;text-align:center;
     max-width:520px;margin:0 auto;width:100%;
 }
 .logo{
-    display:flex;align-items:center;gap:12px;margin-bottom:40px;
+    display:flex;align-items:center;gap:12px;margin-bottom:32px;
 }
 .logo img{width:56px;height:56px;border-radius:14px;box-shadow:0 8px 24px rgba(46,117,182,0.3)}
 .logo-text{font-size:1.5rem;font-weight:800;color:#fff;letter-spacing:-0.02em}
@@ -60,13 +60,9 @@ h1{
     background:linear-gradient(135deg,#2E75B6,#5BA3E6,#F59E0B);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.subtitle{font-size:1.05rem;color:#94A3B8;margin-bottom:32px;max-width:400px}
-.phone{
-    max-width:200px;margin:0 auto 32px;
-    filter:drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-}
+.subtitle{font-size:1.05rem;color:#94A3B8;margin-bottom:36px;max-width:400px}
 .buttons{
-    display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin-bottom:32px;
+    display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px;margin-bottom:36px;
 }
 .btn{
     display:flex;align-items:center;justify-content:center;gap:10px;
@@ -86,26 +82,82 @@ h1{
 .stat-number{display:block;font-size:1.3rem;font-weight:800;color:#fff;line-height:1.2}
 .stat-label{font-size:0.75rem;color:#64748B;margin-top:2px}
 footer{
-    padding:24px;text-align:center;color:#475569;font-size:0.8rem;
+    padding:20px 24px;text-align:center;color:#475569;font-size:0.8rem;
     position:relative;z-index:1;
 }
 footer a{color:#64748B;text-decoration:none;margin:0 8px}
 footer a:hover{color:#94A3B8}
-/* In-App Browser Banner */
+
+/* ========= In-App Browser Banner (smart) ========= */
 #inAppBanner{
-    position:fixed;top:0;left:0;right:0;
-    background:linear-gradient(90deg,#F59E0B,#F97316);
-    color:#0B1A2B;padding:14px 20px;
-    text-align:center;z-index:99999;
-    font-weight:600;font-size:0.9rem;line-height:1.4;
-    box-shadow:0 4px 20px rgba(0,0,0,0.3);
+    position:fixed;top:0;left:0;right:0;z-index:99999;
+    background:linear-gradient(135deg,#F59E0B 0%,#F97316 100%);
+    color:#0B1A2B;
+    padding:16px 20px 18px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+    border-bottom:2px solid rgba(0,0,0,0.15);
 }
-#inAppBanner .arrow{display:inline-block;font-size:1.1rem;vertical-align:middle}
-body.has-banner{padding-top:80px}
-body.has-banner main{padding-top:20px}
+.banner-inner{
+    max-width:520px;margin:0 auto;
+    display:flex;flex-direction:column;gap:10px;
+}
+.banner-head{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.banner-title{
+    font-size:1rem;font-weight:800;line-height:1.2;
+    display:flex;align-items:center;gap:8px;
+}
+.banner-arrow{
+    font-size:1.8rem;line-height:1;display:inline-block;
+    animation:bounce 1.2s ease-in-out infinite;
+}
+@keyframes bounce{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(4px,-6px)}
+}
+.banner-steps{
+    display:flex;flex-direction:column;gap:6px;
+    font-size:0.9rem;font-weight:600;line-height:1.4;
+}
+.banner-step{
+    display:flex;align-items:center;gap:10px;
+}
+.step-num{
+    flex-shrink:0;width:22px;height:22px;border-radius:50%;
+    background:#0B1A2B;color:#F59E0B;
+    font-size:0.75rem;font-weight:800;
+    display:flex;align-items:center;justify-content:center;
+}
+.step-text{flex:1;text-align:left}
+.step-text b{font-weight:800}
+.dots-icon{
+    display:inline-block;padding:0 4px;font-weight:900;
+    background:rgba(0,0,0,0.15);border-radius:4px;
+    line-height:1;vertical-align:middle;
+}
+
+/* In-content hint card (shown near buttons when in WebView) */
+.hint-card{
+    display:none;
+    background:rgba(245,158,11,0.08);
+    border:1px solid rgba(245,158,11,0.3);
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:20px;
+    font-size:0.85rem;color:#FCD34D;
+    line-height:1.5;
+    text-align:left;
+    width:100%;max-width:320px;
+}
+.hint-card b{color:#FDE68A}
+body.has-banner .hint-card{display:block}
+body.has-banner{padding-top:150px}
+@media (min-width:480px){
+    body.has-banner{padding-top:130px}
+}
 @media (min-width:600px){
     h1{font-size:2.6rem}
-    .phone{max-width:240px}
     .buttons{flex-direction:row;max-width:500px}
 }
 </style>
@@ -126,7 +178,9 @@ body.has-banner main{padding-top:20px}
 
     <p class="subtitle">22'000+ Pruefungsfragen. 67 Berufe. KI-Lernkarten. Alles in einer App.</p>
 
-    <img src="../images/01_Dein_Countdown_laeuft.png" alt="LAPpilot App" class="phone">
+    <div class="hint-card" id="hintCard">
+        &#9757;&#65039; <b>Wichtig:</b> Damit der Download funktioniert, musst du die Seite zuerst im richtigen Browser &ouml;ffnen &mdash; siehe Anleitung oben.
+    </div>
 
     <div class="buttons">
         <a href="https://apps.apple.com/ch/app/lappilot/id6760356759" class="btn btn-primary" id="btnIOS">
@@ -170,19 +224,39 @@ body.has-banner main{padding-top:20px}
 
     if (!isInApp) return;
 
-    var banner = document.createElement('div');
-    banner.id = 'inAppBanner';
-
-    var instruction = '';
-    if (isAndroid) {
-        instruction = 'Oben rechts auf <b>&#8942;</b> tippen &rarr; <b>"Im Browser &ouml;ffnen"</b>';
-    } else if (isIOS) {
-        instruction = 'Oben rechts auf <b>&hellip;</b> tippen &rarr; <b>"In Safari &ouml;ffnen"</b>';
+    // Bestimme Menu-Symbol je nach OS
+    var menuSymbol, browserName;
+    if (isIOS) {
+        menuSymbol = '&bull;&bull;&bull;';
+        browserName = 'Safari';
     } else {
-        instruction = 'In echtem Browser (Chrome / Safari) &ouml;ffnen';
+        menuSymbol = '&#8942;';
+        browserName = 'Chrome';
     }
 
-    banner.innerHTML = '&#9888;&#65039; Zum Installieren Browser wechseln<br><span style="font-weight:400;font-size:0.85rem;opacity:0.9;">' + instruction + '</span>';
+    var banner = document.createElement('div');
+    banner.id = 'inAppBanner';
+    banner.innerHTML =
+        '<div class="banner-inner">' +
+            '<div class="banner-head">' +
+                '<div class="banner-title">&#128241; Kurz wechseln &mdash; dauert 3 Sek.</div>' +
+                '<div class="banner-arrow">&#8599;&#65039;</div>' +
+            '</div>' +
+            '<div class="banner-steps">' +
+                '<div class="banner-step">' +
+                    '<span class="step-num">1</span>' +
+                    '<span class="step-text">Oben rechts auf <span class="dots-icon">' + menuSymbol + '</span> tippen</span>' +
+                '</div>' +
+                '<div class="banner-step">' +
+                    '<span class="step-num">2</span>' +
+                    '<span class="step-text"><b>"Im Browser &ouml;ffnen"</b> w&auml;hlen</span>' +
+                '</div>' +
+                '<div class="banner-step">' +
+                    '<span class="step-num">3</span>' +
+                    '<span class="step-text">Download startet &mdash; fertig &#10003;</span>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
     document.body.prepend(banner);
     document.body.classList.add('has-banner');
 })();
