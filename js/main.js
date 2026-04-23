@@ -38,20 +38,24 @@ document.querySelectorAll('.feature-card, .pricing-card, .faq-item, .section-hea
     observer.observe(el);
 });
 
-// Native App Store / Play Store opening (bypass TikTok in-app browser web view)
-// Strategy: Replace href on page load based on device. User click = native scheme = OS opens native Store app.
-const ua = navigator.userAgent;
-const isIOS = /iPhone|iPad|iPod/i.test(ua);
-const isAndroid = /Android/i.test(ua);
-
-if (isIOS) {
-    document.querySelectorAll('a[href*="apps.apple.com"]').forEach(btn => {
-        btn.href = 'itms-apps://apps.apple.com/ch/app/lappilot/id6760356759';
+// Schemes sind hardcoded im HTML (itms-apps:// und market://).
+// Fallback fuer Desktop/unsupported: Wenn Scheme nicht feuert -> Web-Store nach 1.5s.
+document.querySelectorAll('a[href^="itms-apps://"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        setTimeout(() => {
+            if (!document.hidden) {
+                window.location.href = 'https://apps.apple.com/ch/app/lappilot/id6760356759';
+            }
+        }, 1500);
     });
-}
+});
 
-if (isAndroid) {
-    document.querySelectorAll('a[href*="play.google.com"]').forEach(btn => {
-        btn.href = 'market://details?id=com.LAPpilot.app';
+document.querySelectorAll('a[href^="market://"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        setTimeout(() => {
+            if (!document.hidden) {
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.LAPpilot.app';
+            }
+        }, 1500);
     });
-}
+});
