@@ -37,3 +37,30 @@ document.querySelectorAll('.feature-card, .pricing-card, .faq-item, .section-hea
     el.classList.add('fade-in');
     observer.observe(el);
 });
+
+// Native App Store / Play Store opening (bypass TikTok in-app browser web view)
+const ua = navigator.userAgent;
+const isIOS = /iPhone|iPad|iPod/i.test(ua);
+const isAndroid = /Android/i.test(ua);
+
+// iOS buttons: use itms-apps:// scheme to open App Store app directly
+document.querySelectorAll('a[href*="apps.apple.com"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        if (isIOS) {
+            e.preventDefault();
+            window.location.href = 'itms-apps://apps.apple.com/ch/app/lappilot/id6760356759';
+        }
+        // Desktop/Android: href opens apps.apple.com web normally
+    });
+});
+
+// Android buttons: use market:// scheme to open Play Store app directly
+document.querySelectorAll('a[href*="play.google.com"]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        if (isAndroid) {
+            e.preventDefault();
+            window.location.href = 'market://details?id=com.LAPpilot.app';
+        }
+        // Desktop/iOS: href opens play.google.com web normally
+    });
+});
