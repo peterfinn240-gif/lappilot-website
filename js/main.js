@@ -38,24 +38,7 @@ document.querySelectorAll('.feature-card, .pricing-card, .faq-item, .section-hea
     observer.observe(el);
 });
 
-// Schemes sind hardcoded im HTML (itms-apps:// und market://).
-// Fallback fuer Desktop/unsupported: Wenn Scheme nicht feuert -> Web-Store nach 1.5s.
-document.querySelectorAll('a[href^="itms-apps://"]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        setTimeout(() => {
-            if (!document.hidden) {
-                window.location.href = 'https://apps.apple.com/ch/app/lappilot/id6760356759';
-            }
-        }, 1500);
-    });
-});
-
-document.querySelectorAll('a[href^="market://"]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        setTimeout(() => {
-            if (!document.hidden) {
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.LAPpilot.app';
-            }
-        }, 1500);
-    });
-});
+// Schemes sind hardcoded im HTML:
+// iOS: itms-apps:// -> App Store App
+// Android: intent:// -> Play Store App (mit browser_fallback_url, falls Play Store fehlt)
+// Keine zusaetzliche JS-Logik noetig. OS handled alles nativ.
